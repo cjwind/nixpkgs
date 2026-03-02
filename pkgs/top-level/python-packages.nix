@@ -458,6 +458,16 @@ self: super: with self; {
 
   aioquic = callPackage ../development/python-modules/aioquic { };
 
+  aioquic_1_2 = self.aioquic.overrideAttrs rec {
+    version = "1.2.0";
+
+    src = pkgs.fetchPypi {
+      pname = "aioquic";
+      inherit version;
+      hash = "sha256-+RJjuz9xlIxciRW01Q7jcABPIKQW9n+rPcyQVWx+cZk=";
+    };
+  };
+
   aioraven = callPackage ../development/python-modules/aioraven { };
 
   aiorecollect = callPackage ../development/python-modules/aiorecollect { };
@@ -2327,6 +2337,8 @@ self: super: with self; {
 
   btrfsutil = callPackage ../development/python-modules/btrfsutil { };
 
+  btrsync = callPackage ../development/python-modules/btrsync { };
+
   btsmarthub-devicelist = callPackage ../development/python-modules/btsmarthub-devicelist { };
 
   btsocket = callPackage ../development/python-modules/btsocket { };
@@ -2575,6 +2587,8 @@ self: super: with self; {
 
   certbot-dns-route53 = callPackage ../development/python-modules/certbot-dns-route53 { };
 
+  certbot-dns-wedos = callPackage ../development/python-modules/certbot-dns-wedos { };
+
   certbot-nginx = callPackage ../development/python-modules/certbot-nginx { };
 
   certifi = callPackage ../development/python-modules/certifi { };
@@ -2678,6 +2692,8 @@ self: super: with self; {
   chirpstack-api = callPackage ../development/python-modules/chirpstack-api { };
 
   chispa = callPackage ../development/python-modules/chispa { };
+
+  choreographer = callPackage ../development/python-modules/choreographer { };
 
   chroma-hnswlib = callPackage ../development/python-modules/chroma-hnswlib { };
 
@@ -3855,6 +3871,8 @@ self: super: with self; {
   devpi-common = callPackage ../development/python-modules/devpi-common { };
 
   devpi-ldap = callPackage ../development/python-modules/devpi-ldap { };
+
+  devpi-server = callPackage ../development/python-modules/devpi-server { };
 
   devtools = callPackage ../development/python-modules/devtools { };
 
@@ -5493,6 +5511,8 @@ self: super: with self; {
 
   fints = callPackage ../development/python-modules/fints { };
 
+  fints_4 = callPackage ../development/python-modules/fints/4.nix { };
+
   finvizfinance = callPackage ../development/python-modules/finvizfinance { };
 
   fiona = callPackage ../development/python-modules/fiona { };
@@ -5901,6 +5921,8 @@ self: super: with self; {
   fschat = callPackage ../development/python-modules/fschat { };
 
   fslpy = callPackage ../development/python-modules/fslpy { };
+
+  fspath = callPackage ../development/python-modules/fspath { };
 
   fsspec = callPackage ../development/python-modules/fsspec { };
 
@@ -6834,6 +6856,8 @@ self: super: with self; {
 
   hankel = callPackage ../development/python-modules/hankel { };
 
+  hanna-cloud = callPackage ../development/python-modules/hanna-cloud { };
+
   hanzidentifier = callPackage ../development/python-modules/hanzidentifier { };
 
   hap-python = callPackage ../development/python-modules/hap-python { };
@@ -7183,6 +7207,8 @@ self: super: with self; {
   huey = callPackage ../development/python-modules/huey { };
 
   huggingface-hub = callPackage ../development/python-modules/huggingface-hub { };
+
+  huggingface-hub_0 = callPackage ../development/python-modules/huggingface-hub/0.nix { };
 
   human-readable = callPackage ../development/python-modules/human-readable { };
 
@@ -8907,6 +8933,8 @@ self: super: with self; {
 
   linode-metadata = callPackage ../development/python-modules/linode-metadata { };
 
+  linuxdoc = callPackage ../development/python-modules/linuxdoc { };
+
   linuxfd = callPackage ../development/python-modules/linuxfd { };
 
   linuxpy = callPackage ../development/python-modules/linuxpy { };
@@ -8918,6 +8946,8 @@ self: super: with self; {
   lirc = toPythonModule (pkgs.lirc.override { python3 = python; });
 
   lit = callPackage ../development/python-modules/lit { };
+
+  litecli = callPackage ../development/python-modules/litecli { };
 
   litellm = callPackage ../development/python-modules/litellm { };
 
@@ -9210,6 +9240,8 @@ self: super: with self; {
   };
 
   logilab-constraint = callPackage ../development/python-modules/logilab/constraint.nix { };
+
+  logistro = callPackage ../development/python-modules/logistro { };
 
   logmatic-python = callPackage ../development/python-modules/logmatic-python { };
 
@@ -10288,6 +10320,8 @@ self: super: with self; {
 
   mutf8 = callPackage ../development/python-modules/mutf8 { };
 
+  mvg = callPackage ../development/python-modules/mvg { };
+
   mwcli = callPackage ../development/python-modules/mwcli { };
 
   mwclient = callPackage ../development/python-modules/mwclient { };
@@ -11306,6 +11340,8 @@ self: super: with self; {
   omemo = callPackage ../development/python-modules/omemo { };
 
   omemo-dr = callPackage ../development/python-modules/omemo-dr { };
+
+  omitempty = callPackage ../development/python-modules/omitempty { };
 
   omnikinverter = callPackage ../development/python-modules/omnikinverter { };
 
@@ -15395,6 +15431,8 @@ self: super: with self; {
 
   python-clementine-remote = callPackage ../development/python-modules/python-clementine-remote { };
 
+  python-code-minimap = callPackage ../development/python-modules/python-code-minimap { };
+
   python-codon-tables = callPackage ../development/python-modules/python-codon-tables { };
 
   python-coinmarketcap = callPackage ../development/python-modules/python-coinmarketcap { };
@@ -15666,6 +15704,8 @@ self: super: with self; {
   python-opendata-transport = callPackage ../development/python-modules/python-opendata-transport { };
 
   python-openems = callPackage ../development/python-modules/python-openems { };
+
+  python-openevse-http = callPackage ../development/python-modules/python-openevse-http { };
 
   python-opensky = callPackage ../development/python-modules/python-opensky { };
 
@@ -19395,6 +19435,8 @@ self: super: with self; {
 
   transformers = callPackage ../development/python-modules/transformers { };
 
+  transformers_4 = callPackage ../development/python-modules/transformers/4.nix { };
+
   transforms3d = callPackage ../development/python-modules/transforms3d { };
 
   transitions = callPackage ../development/python-modules/transitions { };
@@ -20209,6 +20251,8 @@ self: super: with self; {
   uhashring = callPackage ../development/python-modules/uhashring { };
 
   uhi = callPackage ../development/python-modules/uhi { };
+
+  uhooapi = callPackage ../development/python-modules/uhooapi { };
 
   uiprotect = callPackage ../development/python-modules/uiprotect { };
 
@@ -21185,6 +21229,8 @@ self: super: with self; {
   yara-x = callPackage ../development/python-modules/yara-x { };
 
   yaramod = callPackage ../development/python-modules/yaramod { };
+
+  yardstick = callPackage ../development/python-modules/yardstick { };
 
   yarg = callPackage ../development/python-modules/yarg { };
 
