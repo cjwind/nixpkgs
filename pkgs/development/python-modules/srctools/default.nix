@@ -11,10 +11,11 @@
   pillow,
   pytest-regressions,
   dirty-equals,
+  setuptools,
 }:
 let
   pname = "srctools";
-  version = "2.6.2";
+  version = "2.7.0";
 in
 buildPythonPackage {
   inherit pname version;
@@ -22,14 +23,8 @@ buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-c+NmrTntpNTEI782aoC4bNpoKpWe4cqSAkxpYS5HH30=";
+    hash = "sha256-Ht+PUHzOjUNlllan1NvmvRRI7TGq3ws8Uwg8G/yJ9ZE=";
   };
-
-  # TODO remove when https://github.com/python/pythoncapi-compat/pull/169 is merged
-  # and new srctools version is released with fix
-  patches = [
-    ./fix-tests.diff
-  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -52,7 +47,17 @@ buildPythonPackage {
     pillow
     pytest-regressions
     dirty-equals
+    setuptools # required for pythoncapi-compat tests
   ];
+
+  # pythoncpai-comat tests are incompatible with pytest so we run their tests manually
+  # see https://github.com/python/pythoncapi-compat/pull/169
+  disabledTestPaths = [
+    "src/pythoncapi-compat"
+  ];
+  postCheck = ''
+    python3 src/pythoncapi-compat/runtests.py --current
+  '';
 
   pythonImportsCheck = [ "srctools" ];
 

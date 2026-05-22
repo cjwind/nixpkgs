@@ -27,9 +27,7 @@
   lib,
   stdenv,
   buildPythonPackage,
-  pythonAtLeast,
   fetchFromGitHub,
-  fetchpatch,
 
   # build-system
   poetry-core,
@@ -53,11 +51,6 @@
 
   # native
   gobject-introspection,
-  sphinxHook,
-  sphinx-design,
-  sphinx-copybutton,
-  sphinx-toolbox,
-  pydata-sphinx-theme,
 
   # buildInputs
   gst_all_1,
@@ -97,6 +90,7 @@
   # tests
   pytestCheckHook,
   pytest-cov-stub,
+  pytest-factoryboy,
   pytest-flask,
   mock,
   rarfile,
@@ -119,16 +113,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "beets";
-  version = "2.6.2";
+  version = "2.11.0";
   src = fetchFromGitHub {
     owner = "beetbox";
     repo = "beets";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1euYkoM66gnElCbgCgIpj1waq1QvHApUgioJTbSQJ0U=";
+    hash = "sha256-fi6D0P2GtEO41VL6UKAArRedZVxw97yqDUAoilktUho=";
   };
   pyproject = true;
-  # Waiting for https://github.com/beetbox/beets/pull/6267
-  disabled = pythonAtLeast "3.14";
 
   patches = extraPatches;
 
@@ -162,11 +154,6 @@ buildPythonPackage (finalAttrs: {
 
   nativeBuildInputs = [
     gobject-introspection
-    sphinxHook
-    sphinx-design
-    sphinx-copybutton
-    sphinx-toolbox
-    pydata-sphinx-theme
   ]
   ++ extraNativeBuildInputs;
 
@@ -178,19 +165,7 @@ buildPythonPackage (finalAttrs: {
 
   outputs = [
     "out"
-    "doc"
-    "man"
   ];
-  sphinxBuilders = [
-    "html"
-    "man"
-  ];
-  # Causes an installManPage error. Not clear why this directory gets generated
-  # with the manpages. The same directory is observed correctly in
-  # $doc/share/doc/beets-${version}/html
-  preInstallSphinx = ''
-    rm -r .sphinx/man/man/_sphinx_design_static
-  '';
 
   postInstall = ''
     mkdir -p $out/share/zsh/site-functions
@@ -204,8 +179,10 @@ buildPythonPackage (finalAttrs: {
   ];
 
   nativeCheckInputs = [
+    ffmpeg
     pytestCheckHook
     pytest-cov-stub
+    pytest-factoryboy
     pytest-flask
     mock
     rarfile
@@ -296,13 +273,12 @@ buildPythonPackage (finalAttrs: {
         bareasc = { };
         beatport.propagatedBuildInputs = [ requests-oauthlib ];
         bench.testPaths = [ ];
-        bpd.testPaths = [ ];
+        bpd = { };
         bpm.testPaths = [ ];
         bpsync.testPaths = [ ];
         bucket = { };
         chroma = {
           propagatedBuildInputs = [ pyacoustid ];
-          testPaths = [ ];
           wrapperBins = [
             chromaprint
           ];
@@ -408,6 +384,7 @@ buildPythonPackage (finalAttrs: {
         substitute = {
           testPaths = [ ];
         };
+        tidal = { };
         the = { };
         titlecase.propagatedBuildInputs = [ titlecase ];
         thumbnails = {

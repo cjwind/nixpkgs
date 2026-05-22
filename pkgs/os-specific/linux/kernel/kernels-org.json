@@ -1,42 +1,42 @@
 {
     "testing": {
-        "version": "6.19-rc8",
-        "hash": "sha256:1vwlhsk3cry48p9v2kqqxkmrsw2sjgspfylv3c7r5430yk7fhyg1",
+        "version": "7.1-rc4",
+        "hash": "sha256:06z73f1vprl4adbdj01h3407p3f8bl8jsz91zx454c62k2jg3w40",
         "lts": false
     },
     "6.1": {
-        "version": "6.1.164",
-        "hash": "sha256:074xlcrx5lvbkbwgahfvjlvak0j1nig9azfxfdl64zxzgdzhigrk",
+        "version": "6.1.173",
+        "hash": "sha256:163dhycch5pw1vc87mm13djghwwyz182ljway5w19hz8zdn2rwy4",
         "lts": true
     },
     "5.15": {
-        "version": "5.15.201",
-        "hash": "sha256:15hv8rqgr6ca9rnbpb6hvzskqvb4h8x3w6nl4y2npbfsxpxzyajg",
+        "version": "5.15.207",
+        "hash": "sha256:13hlwrfi7hp3lxg5v4kx5ykycb64iwc7xhg4rbjk0pvl0yipzssh",
         "lts": true
     },
     "5.10": {
-        "version": "5.10.251",
-        "hash": "sha256:00ac9gzidby7b82s2prq4c3w99a077f5li4v4yq8gdg3zqjpd1g6",
+        "version": "5.10.256",
+        "hash": "sha256:0pwf9nsr7clqm0bxvyrp3k79d5i6f9xqq58i31xvvra1xk4dmsgi",
         "lts": true
     },
     "6.6": {
-        "version": "6.6.127",
-        "hash": "sha256:1zn9z3ghjyff71s3yabfanrgyks3wnmn1p5w6301rczhnjbrrkd7",
+        "version": "6.6.140",
+        "hash": "sha256:1nxpckv5kq4i0vhg0nszzkq1sf9lsjjkaf8q8wvpyc6ll9s9cz6n",
         "lts": true
     },
     "6.12": {
-        "version": "6.12.74",
-        "hash": "sha256:0gm1mjn203gc11dqk82fkbsr96bnwcxq4sx5khc7yhwsvjqywmiv",
+        "version": "6.12.90",
+        "hash": "sha256:1a521y1gins69ir1dskhavmrn9bq28c1vknkhii8m2s6azq1y6hz",
         "lts": true
     },
     "6.18": {
-        "version": "6.18.15",
-        "hash": "sha256:0w7iy9mx1b42q4qz6y9rvny7nmvpwq0mf6b9vv84w4y4qcb64wbw",
+        "version": "6.18.32",
+        "hash": "sha256:195xsf4d2rpzkkjdp570sgz4128djzvi5wsqc7m890jp8paasz86",
         "lts": true
     },
-    "6.19": {
-        "version": "6.19.5",
-        "hash": "sha256:1yig0i2q7vn7p8g4lmkviddxi62mzhp0fv2hx3057qq9qz40bblm",
+    "7.0": {
+        "version": "7.0.9",
+        "hash": "sha256:1i7ihfnidi3q91g24swa7i9rk9m1f016g8l7a7622ingfvgsq1xc",
         "lts": false
     }
 }

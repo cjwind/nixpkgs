@@ -13,14 +13,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "python-openevse-http";
-  version = "0.2.4";
+  version = "0.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "firstof9";
     repo = "python-openevse-http";
     tag = finalAttrs.version;
-    hash = "sha256-aI1IU9mGThg9tNAqdgKAG5miuVDQozWJoBaoy3cFhwY=";
+    hash = "sha256-U6v2YcPOllJwmlhQ+ilexj5u1Lom3zwXeQUyKan4j2I=";
   };
 
   build-system = [ setuptools ];

@@ -12,19 +12,22 @@
   pytest-xdist,
   pytestCheckHook,
   python-slugify,
+  pythonOlder,
   setuptools,
 }:
 
 buildPythonPackage rec {
   pname = "aiohomematic";
-  version = "2026.2.27";
+  version = "2026.4.6";
   pyproject = true;
+
+  disabled = pythonOlder "3.14";
 
   src = fetchFromGitHub {
     owner = "SukramJ";
     repo = "aiohomematic";
     tag = version;
-    hash = "sha256-BwEW1U9ARTZ5QQh3XZ1J1zh9/pDCtp4PG6FGAYdxGBg=";
+    hash = "sha256-R7hQprIAK7Xs+XpmMecAGGrAYzfBk+fQo17tkByC0Kc=";
   };
 
   build-system = [ setuptools ];

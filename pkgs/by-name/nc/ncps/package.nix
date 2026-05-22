@@ -6,27 +6,22 @@
   jq,
   lib,
   makeWrapper,
-  mariadb,
-  minio,
-  minio-client,
   nix-update-script,
   nixosTests,
-  postgresql,
   python3,
-  redis,
   writeShellScriptBin,
   xz,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "ncps";
-  version = "0.9.2";
+  version = "0.9.4";
 
   src = fetchFromGitHub {
     owner = "kalbasit";
     repo = "ncps";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LRabKv+4xYQn2XH4AIacFkn3ewUd2S3UlVWCA6MUweU=";
+    hash = "sha256-VPcX9gLXnTrap6HHU+08QdTBbT2oaNA2C9WY0e/FVoc=";
   };
 
   vendorHash = "sha256-PpHSkD7+csPfUXoYRuKhBm1iBtTSwJhOxuW/4ayv9hY=";
@@ -44,16 +39,7 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [
     makeWrapper # used for wrapping the binary so it can always find the xz binary
-
-    curl # used for checking MinIO health check
     dbmate # used for testing
-    jq # used for testing by the init-minio
-    mariadb # MySQL/MariaDB for integration tests
-    minio # S3-compatible storage for integration tests
-    minio-client # mc CLI for MinIO setup
-    postgresql # PostgreSQL for integration tests
-    python3 # used for generating the ports
-    redis # Redis for distributed locking integration tests
   ];
 
   postInstall = ''
@@ -77,23 +63,6 @@ buildGoModule (finalAttrs: {
   doCheck = true;
 
   checkFlags = [ "-race" ];
-
-  # pre and post checks
-  preCheck = ''
-    # Set up cleanup trap to ensure background processes are killed even if tests fail
-    cleanup() {
-      source $src/nix/packages/ncps/post-check-minio.sh
-      source $src/nix/packages/ncps/post-check-mysql.sh
-      source $src/nix/packages/ncps/post-check-postgres.sh
-      source $src/nix/packages/ncps/post-check-redis.sh
-    }
-    trap cleanup EXIT
-
-    source $src/nix/packages/ncps/pre-check-minio.sh
-    source $src/nix/packages/ncps/pre-check-mysql.sh
-    source $src/nix/packages/ncps/pre-check-postgres.sh
-    source $src/nix/packages/ncps/pre-check-redis.sh
-  '';
 
   passthru = {
     dbmate-wrapper = buildGoModule {

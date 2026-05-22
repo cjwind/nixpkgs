@@ -6,13 +6,12 @@
   pkg-config,
   makeWrapper,
   cmake,
-  meson,
-  ninja,
   aquamarine,
   binutils,
   cairo,
   epoll-shim,
   glaze,
+  glslang,
   hyprcursor,
   hyprgraphics,
   hyprland-qtutils,
@@ -20,13 +19,15 @@
   hyprutils,
   hyprwire,
   hyprwayland-scanner,
+  lcms2,
   libGL,
   libdrm,
   libexecinfo,
+  libgbm,
   libinput,
   libuuid,
   libxkbcommon,
-  libgbm,
+  lua5_5,
   muparser,
   pango,
   pciutils,
@@ -35,6 +36,7 @@
   re2,
   systemd,
   tomlplusplus,
+  uwsm,
   wayland,
   wayland-protocols,
   wayland-scanner,
@@ -53,7 +55,6 @@ let
   inherit (builtins)
     foldl'
     ;
-  inherit (lib.asserts) assertMsg;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.lists)
     concatLists
@@ -82,19 +83,19 @@ let
 in
 customStdenv.mkDerivation (finalAttrs: {
   pname = "hyprland" + optionalString debug "-debug";
-  version = "0.54.0";
+  version = "0.55.2";
 
   src = fetchFromGitHub {
     owner = "hyprwm";
     repo = "hyprland";
     fetchSubmodules = true;
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wfiduannx1mWvsGAfuMk8ipOU3AAFuJYPNV4D++dhPY=";
+    hash = "sha256-RuXKYFqd+yr9ppkbRzq07Jt0IgiNa8nCpyfoBElpSDY=";
   };
 
   postPatch = ''
     # Fix hardcoded paths to /usr installation
-    substituteInPlace src/render/OpenGL.cpp \
+    substituteInPlace src/render/types.hpp \
       --replace-fail /usr $out
 
     # Remove extra @PREFIX@ to fix pkg-config paths
@@ -102,6 +103,9 @@ customStdenv.mkDerivation (finalAttrs: {
       --replace-fail  "@PREFIX@/" ""
     substituteInPlace example/hyprland.desktop.in \
       --replace-fail  "@PREFIX@/" ""
+    substituteInPlace systemd/hyprland-uwsm.desktop \
+      --replace-fail "Exec=uwsm " "Exec=${lib.getExe uwsm} " \
+      --replace-fail "TryExec=uwsm" "TryExec=${lib.getExe uwsm}"
   '';
 
   # variables used by CMake, and shown in `hyprctl version`
@@ -144,10 +148,12 @@ customStdenv.mkDerivation (finalAttrs: {
       aquamarine
       cairo
       glaze
+      glslang
       hyprcursor.dev
       hyprgraphics
       hyprlang
       hyprutils
+      lcms2
       libGL
       libdrm
       libgbm
@@ -155,6 +161,7 @@ customStdenv.mkDerivation (finalAttrs: {
       libuuid
       libxcursor
       libxkbcommon
+      lua5_5
       muparser
       pango
       pciutils
@@ -210,6 +217,7 @@ customStdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/hyprwm/Hyprland";
+    changelog = "https://github.com/hyprwm/Hyprland/releases/tag/${finalAttrs.src.tag}";
     description = "Dynamic tiling Wayland compositor that doesn't sacrifice on its looks";
     license = lib.licenses.bsd3;
     teams = [ lib.teams.hyprland ];

@@ -6,17 +6,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "avdl";
-  version = "0.1.6+1.12.1";
+  version = "0.1.9+1.12.1";
 
   src = fetchFromGitHub {
     owner = "jonhoo";
     repo = "avdl";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ReTsyIZ+w7wWhREmkZT6tNsEFkpF2KVJsFAhCfL5CZQ=";
+    hash = "sha256-HfcDSv3RzmoFbwt7iAP/UXdeJupfng8oeaeerUwW1Ik=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-WiAPUD5AAsYSxJ5tn8/6ZjMf3hEOtTXzOMIVXd6f9l0=";
+  cargoHash = "sha256-5ftBXywOUQKzIwjaQVHtxO/6A1bb1jGZAxYYY7GttCg=";
 
   meta = {
     description = "Rust port of avro-tools' IDL tooling";

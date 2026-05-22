@@ -10,7 +10,11 @@
   gobject-introspection,
   gtk4,
   libglvnd,
+  libx11,
+  libxcursor,
+  libxi,
   libxkbcommon,
+  libxrandr,
   pango,
   pkg-config,
   rustPlatform,
@@ -25,16 +29,16 @@
 let
   self = rustPlatform.buildRustPackage {
     pname = "czkawka";
-    version = "10.0.0";
+    version = "11.0.1";
 
     src = fetchFromGitHub {
       owner = "qarmin";
       repo = "czkawka";
       tag = self.version;
-      hash = "sha256-r6EdTv95R8+XhaoA9OeqnGGl09kz8kMJaDPDRV6wQe8=";
+      hash = "sha256-ke6N3vuKPGolfh6XpAg3/9dtwd09eX53fN2klUwwNwQ=";
     };
 
-    cargoHash = "sha256-o4XjHJ7eCckTXqjz1tS4OSCP8DZzjxfWoMMy5Gab2rI=";
+    cargoHash = "sha256-fx2ZH4I2WYCdMgNoKQuBBEJrPjmgTRPeVM2L+TWYn54=";
 
     nativeBuildInputs = [
       gobject-introspection
@@ -49,9 +53,11 @@ let
       gdk-pixbuf
       glib
       gtk4
+      pango
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       libglvnd
       libxkbcommon
-      pango
       wayland
     ];
 
@@ -69,20 +75,31 @@ let
 
     # Desktop items, icons and metainfo are not installed automatically
     postInstall = ''
+      # Czkawka
       install -Dm444 -t $out/share/applications data/com.github.qarmin.czkawka.desktop
       install -Dm444 -t $out/share/icons/hicolor/scalable/apps data/icons/com.github.qarmin.czkawka.svg
       install -Dm444 -t $out/share/icons/hicolor/scalable/apps data/icons/com.github.qarmin.czkawka-symbolic.svg
       install -Dm444 -t $out/share/metainfo data/com.github.qarmin.czkawka.metainfo.xml
+
+      # Krokiet
+      install -Dm444 -t $out/share/applications data/io.github.qarmin.krokiet.desktop
+      install -Dm444 -t $out/share/icons/hicolor/scalable/apps data/icons/io.github.qarmin.krokiet.svg
+      install -Dm444 -t $out/share/metainfo data/io.github.qarmin.krokiet.metainfo.xml
     '';
     dontWrapGApps = true;
 
     postFixup = ''
       wrapGApp $out/bin/czkawka_gui
-
+    ''
+    + lib.optionalString stdenv.hostPlatform.isLinux ''
       patchelf --add-rpath "${
         lib.makeLibraryPath [
           fontconfig
           libglvnd
+          libx11
+          libxcursor
+          libxi
+          libxrandr
           libxkbcommon
           wayland
         ]

@@ -47,6 +47,7 @@
   libdrm,
   libgbm,
   vulkan-loader,
+  addDriverRunpath,
   nss,
   nspr,
   patchelf,
@@ -66,7 +67,7 @@
 
 stdenv.mkDerivation rec {
   pname = "vivaldi";
-  version = "7.8.3925.73";
+  version = "8.0.4033.26";
 
   suffix =
     {
@@ -79,8 +80,8 @@ stdenv.mkDerivation rec {
     url = "https://downloads.vivaldi.com/stable/vivaldi-stable_${version}-1_${suffix}.deb";
     hash =
       {
-        aarch64-linux = "sha256-qj41tJMWfto+NEqCqTvLAayJG5Upf/iKb5tQGRp/0y8=";
-        x86_64-linux = "sha256-A5Ab9hr402e/y7ENoWy2fWD+aw0rBd7ZxEnAXiI8Tks=";
+        aarch64-linux = "sha256-WJLEdzqF+HBdSSYLlkbxlSwO9IcYeFh7BTAk+2FQln8=";
+        x86_64-linux = "sha256-6BexB3ZQLNqMPjM9XQgX3RowF+cEJcQmV/Z9QpzhKOE=";
       }
       .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
@@ -208,9 +209,13 @@ stdenv.mkDerivation rec {
         "$out"/opt/vivaldi/product_logo_''${d}.png \
         "$out"/share/icons/hicolor/''${d}x''${d}/apps/vivaldi.png
     done
+    # replace bundled vulkan-loader with the NixOS-patched one to enable Vulkan ICD discovery
+    rm $out/opt/vivaldi/libvulkan.so.1
+    ln -s "${lib.getLib vulkan-loader}/lib/libvulkan.so.1" $out/opt/vivaldi/libvulkan.so.1
+
     wrapProgram "$out/bin/vivaldi" \
       --add-flags ${lib.escapeShellArg commandLineArgs} \
-      --prefix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}/ \
+      --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share:${gtk3}/share/gsettings-schemas/${gtk3.name}" \
       --prefix LD_LIBRARY_PATH : ${libPath} \
       --prefix PATH : ${coreutils}/bin \
       ''${qtWrapperArgs[@]}

@@ -26,14 +26,14 @@
 }:
 
 let
-  version = "2.83.0";
+  version = "2.85.0";
 
   src = fetchFromGitHub {
     name = "azure-cli-${version}-src";
     owner = "Azure";
     repo = "azure-cli";
     tag = "azure-cli-${version}";
-    hash = "sha256-ptmqcRbjLWMZ9i+rt0amfjpVC+VuE+L3Np2gPpF7Urg=";
+    hash = "sha256-fNch6QiiHffyHOHw30dlRoe5UFvGVIZkneULjNihGdU=";
   };
 
   # put packages that needs to be overridden in the py package scope
@@ -187,6 +187,7 @@ py.pkgs.toPythonApplication (
         azure-mgmt-compute
         azure-mgmt-containerinstance
         azure-mgmt-containerregistry
+        azure-mgmt-containerregistrytasks
         azure-mgmt-containerservice
         azure-mgmt-cosmosdb
         azure-mgmt-datalake-store

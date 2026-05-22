@@ -7,14 +7,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "b3sum";
-  version = "1.8.3";
+  version = "1.8.5";
 
   src = fetchCrate {
     inherit (finalAttrs) version pname;
-    hash = "sha256-mU2r5xbYf6A1RibWqhow/637YxybCFMT3UzYcUMjhdg=";
+    hash = "sha256-odlO6J60wTrca+opzheDbz4lSDAgjDTFFUIHf6NoTXI=";
   };
 
-  cargoHash = "sha256-w9l8dn4Ahck3NXuN4Ph9qmGoS767/mQRBgO9AT0CH3Y=";
+  cargoHash = "sha256-a/KGCU0bZ1gqB8EH7f8SN6qTuYZMakXdqddtTKNVDPs=";
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -27,7 +27,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/BLAKE3-team/BLAKE3/";
     maintainers = with lib.maintainers; [
       fpletz
-      ivan
     ];
     license = with lib.licenses; [
       cc0
