@@ -18,14 +18,14 @@
 
 buildGoModule (finalAttrs: {
   pname = "spotiflac";
-  version = "7.1.6";
+  version = "7.1.8";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "afkarxyz";
     repo = "SpotiFLAC";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-iQBJS2IsOzamC1plkd9BGbSajY9UpomaXMJRJgQ36t4=";
+    hash = "sha256-Uz+9vsneP8xLGi5pgwYIufCPUzKSH4CRAdt0o+FifAM=";
   };
 
   nativeBuildInputs = [
@@ -83,10 +83,12 @@ buildGoModule (finalAttrs: {
       --set XDG_DATA_DIRS ${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name} \
       --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
 
+    install -D frontend/src/assets/icons/spotiflac.svg $out/share/icons/hicolor/scalable/apps/SpotiFLAC.svg
+
     runHook postInstall;
   '';
 
-  vendorHash = "sha256-ZUmQPOMkeF8YUow6gr4yyRnPJIbCnAltM50H5yo3MGs=";
+  vendorHash = "sha256-dTrfLnuo7W3m3mg32wBDv8IbmQA44KXsazRLdanIi/Y=";
 
   desktopItems = [
     (makeDesktopItem {

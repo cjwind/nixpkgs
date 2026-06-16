@@ -20,14 +20,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "serialx";
-  version = "1.7.3";
+  version = "1.8.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "puddly";
     repo = "serialx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-KZeKH0sy5GZESwbwWOr/j51UtQjwm98E1Phu0D+Ailo=";
+    hash = "sha256-89lRB96lit4XxPhACnZ3Lv01G0IcddlwyPTttrWwsLQ=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
